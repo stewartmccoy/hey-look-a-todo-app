@@ -5,12 +5,14 @@ define(['jquery', 'underscore', 'backbone', 'marionette', 'app/models'], functio
 
         ui: {
             'toggleItemDone': '.toggle-item-done',
-            'deleteItem': '.delete'
+            'deleteItem': '.delete',
+            'clickListTitle': '.todo-title'
         },
 
         events: {
             "click @ui.toggleItemDone": "toggleDoneState",
-            "click @ui.deleteItem": "deleteTodo"
+            "click @ui.deleteItem": "deleteTodo",
+            "click @ui.clickListTitle": "clickListTitle"
         },
 
         onRender: function() {
@@ -28,6 +30,15 @@ define(['jquery', 'underscore', 'backbone', 'marionette', 'app/models'], functio
             } else {
                 this.ui.toggleItemDone.parent().removeClass("completed");
             }
+        },
+
+        clickListTitle: function() {
+            if (this.model.getDone()) {
+                this.ui.toggleItemDone.prop("checked", false);
+            } else {
+                this.ui.toggleItemDone.prop("checked", true);
+            }
+            this.toggleDoneState();
         },
 
         deleteTodo: function() {

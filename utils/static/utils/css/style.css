@@ -18,3 +18,7 @@ ul {
 #newTodoItem {
     margin-left: 20px;
 }
+
+.todo-title {
+    cursor: pointer;
+}
