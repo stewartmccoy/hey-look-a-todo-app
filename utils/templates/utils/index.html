@@ -12,10 +12,8 @@
     <a href="{% url 'logout' %}">Log Out</a>
 
     <script type="text/html" id="list-item">
-        <label class="todo-title">
             <input class="toggle-item-done" type="checkbox"></input>
-            <%= title %>
-        </label>
+            <textarea class="todo-title"></textarea>
         <button class="delete">Delete</button>
     </script>
 

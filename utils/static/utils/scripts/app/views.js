@@ -5,12 +5,14 @@ define(['jquery', 'underscore', 'backbone', 'marionette', 'app/models'], functio
 
         ui: {
             'toggleItemDone': '.toggle-item-done',
-            'deleteItem': '.delete'
+            'deleteItem': '.delete',
+            'todoTitle': '.todo-title'
         },
 
         events: {
             "click @ui.toggleItemDone": "toggleDoneState",
-            "click @ui.deleteItem": "deleteTodo"
+            "click @ui.deleteItem": "deleteTodo",
+            "keyup @ui.todoTitle": "editTodo"
         },
 
         onRender: function() {
@@ -18,6 +20,8 @@ define(['jquery', 'underscore', 'backbone', 'marionette', 'app/models'], functio
                 this.ui.toggleItemDone.prop("checked", true);
                 this.ui.toggleItemDone.parent().addClass("completed");
             }
+
+            this.ui.todoTitle.val(this.model.getTitle());
         },
 
         toggleDoneState: function() {
@@ -32,6 +36,10 @@ define(['jquery', 'underscore', 'backbone', 'marionette', 'app/models'], functio
 
         deleteTodo: function() {
             this.model.destroy();
+        },
+
+        editTodo: function(e) {
+            this.model.setTitle(this.ui.todoTitle.val());
         }
     });
 
@@ -49,15 +57,18 @@ define(['jquery', 'underscore', 'backbone', 'marionette', 'app/models'], functio
         },
 
         onKeyPress: function(e){
-            if (e.keyCode == 13) {
-                var listItem = new models.ToDo({
-                    'done': false,
-                    'title': this.ui.itemTitle.val(),
-                    'user': config.uid
-                });
-                this.ui.itemTitle.val("");
-                this.collection.create(listItem);
-            }
+            if (e.keyCode === 13)
+                this.addItem();
+        },
+
+        addItem: function() {
+            var listItem = new models.ToDo({
+                'done': false,
+                'title': this.ui.itemTitle.val(),
+                'user': config.uid
+            });
+            this.ui.itemTitle.val("");
+            this.collection.create(listItem);
         }
     });
 
