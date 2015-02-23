@@ -38,9 +38,9 @@ define(['jquery', 'underscore', 'backbone', 'marionette', 'app/models'], functio
             this.model.destroy();
         },
 
-        editTodo: function(e) {
+        editTodo: _.throttle(function(e) {
             this.model.setTitle(this.ui.todoTitle.val());
-        }
+        }, 2000)
     });
 
     var ToDoListView = Backbone.Marionette.CompositeView.extend({
