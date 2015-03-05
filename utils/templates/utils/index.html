@@ -7,9 +7,20 @@
 {% if not user.is_authenticated %}
     Please <a href="{% url 'login' %}">log in</a> or <a href="{% url 'signup' %}">sign up</a>!
 {% else %}
-    <div id="todo-list"></div>
+    <div id="container">
+      <div id="lists-container"></div>
+      <div id="todo-list"></div>
+    </div>
 
     <a href="{% url 'logout' %}">Log Out</a>
+    
+    <script type="text/html" id="list">
+        <%= title %>
+    </script>
+    
+    <script type="text/html" id="lists">
+      <ul></ul>
+    </script>
 
     <script type="text/html" id="list-item">
         <label class="todo-title">

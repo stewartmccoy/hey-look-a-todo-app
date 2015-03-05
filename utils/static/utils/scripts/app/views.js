@@ -60,8 +60,38 @@ define(['jquery', 'underscore', 'backbone', 'marionette', 'app/models'], functio
             }
         }
     });
+    
+    var ListView = Backbone.Marionette.ItemView.extend({
+        tagName: 'li',
+        className: 'list',
+        template: Backbone.Marionette.TemplateCache.get("#list"),
+      
+        events: {
+            "click .list": "clickListTitle"
+        },
+      
+      clickListTitle: function() {
+          var toDoList = new models.ToDoList();
+          toDoList.fetch({
+              success: function(c) {
+                  (new ToDoListView({
+                      collection: c,
+                      el: '#todo-list'
+                  })).render();
+              }
+          });
+        }
+    });
+    
+    var ListsView = Backbone.Marionette.CompositeView.extend({
+        childView: ListView,
+        childViewContainer: 'ul',
+        template: Backbone.Marionette.TemplateCache.get("#lists"),
+    });
 
     return {
+        ListView: ListView,
+        ListsView: ListsView,
         ToDoView: ToDoView,
         ToDoListView: ToDoListView
     };

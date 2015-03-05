@@ -16,7 +16,18 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
         url: '/todo/',
     });
 
+    var List = Backbone.Model.extend({
+        urlRoot: '/todo-list/',
+    });
+
+    var Lists = Backbone.Collection.extend({
+        model: List,
+        url: '/todo-list/'
+    });
+
     return {
+        List: List,
+        Lists: Lists,
         ToDo: ToDo,
         ToDoList: ToDoList
     };

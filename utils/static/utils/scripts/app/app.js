@@ -10,15 +10,25 @@ define(['jquery', 'underscore', 'backbone', 'marionette', 'app/models', 'app/vie
             };
         })();
 
-        var toDoList = new models.ToDoList();
-        toDoList.fetch({
+        // var toDoList = new models.ToDoList();
+        // toDoList.fetch({
+        //     success: function(c) {
+        //         (new views.ToDoListView({
+        //             collection: c,
+        //             el: '#todo-list'
+        //         })).render();
+        //     }
+        // });
+
+        var lists = new models.Lists();
+        lists.fetch({
             success: function(c) {
-                (new views.ToDoListView({
+                (new views.ListsView({
                     collection: c,
-                    el: '#todo-list'
+                    el: '#lists-container'
                 })).render();
             }
-        });
+        })
     };
 
     return {
